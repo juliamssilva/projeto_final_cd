@@ -46,4 +46,74 @@ def PlotLineGraph(dataset, attribute: str):
     plt.tight_layout()
     plt.show()
 
-#ok
+#Função que recebe os parametos e faz as contas necessárias
+def Antagonics(dataset1, dataset2, posicao1:str, posicao2: str):
+    #selecionar apenas os valores númericos
+    columns1 = dataset1.select_dtypes(include=['int', 'float']).columns
+    columns2 = dataset2.select_dtypes(include=['int', 'float']).columns
+
+    #Colocando os dados em uma lista
+    num1 = dataset1[columns1].values.flatten().tolist()
+    num2 = dataset2[columns2].values.flatten().tolist()
+
+    #Transformando em matriz
+    matriz = np.column_stack((num1,num2))
+
+    df = pd.DataFrame(data=matriz, columns=['num1', 'num2'])
+
+    GraphGrouping(matriz,2,df,num1,num2,posicao1,posicao2)
+
+    
+
+#Função que mostra o gráfico de agrupamento 
+def GraphGrouping(matriz,num, data, c1, c2,p1,p2):
+
+    kmeans = KMeans(n_clusters=num)
+
+    kmeans.fit(matriz)
+
+    centroids = kmeans.cluster_centers_
+
+    labels = kmeans.labels_
+
+    plt.figure(figsize=(8, 6))
+
+    #PLotar os gráficos
+    sns.scatterplot(data=data, x=c1, y=c2, hue=labels)
+
+    plt.scatter(centroids[0, 0], centroids[0, 1], marker='^', s=200, c='blue', label='Centróides')
+    plt.scatter(centroids[1, 0], centroids[1, 1], marker='^', s=200, c='orange', label='Centróides')
+
+
+    plt.title("K-Means Clustering")
+    plt.xlabel(f"{p1}")
+    plt.ylabel(f"{p2}")
+    plt.show()
+
+#Função para os boxplots das habilidades por ano 
+def BoxAttribbutes(dataset, posicao, habilidade):
+    # Inicializar um DataFrame vazio
+    dados_grafico = pd.DataFrame()
+
+    for i in range(15, 25):
+        # Copiar os dados filtrados
+        filtred_data = dataset[(dataset["player_positions"].str.contains(posicao)) & (dataset["fifa_version"] == i)].copy()
+
+        # Adicionar a coluna "fifa_version" com o valor atual
+        filtred_data["fifa_version"] = i
+
+        # Verificar se é a primeira iteração
+        if dados_grafico.empty:
+            dados_grafico = filtred_data
+        else:
+            # Concatenar os dados
+            dados_grafico = pd.concat([dados_grafico, filtred_data])
+
+    # Plotar o boxplot
+    plt.figure(figsize=(14, 7))
+    sns.boxplot(data=dados_grafico, x="fifa_version", y=habilidade)
+    plt.title(f"Boxplot da {habilidade} dos {posicao} em Todas as Versões do FIFA")
+    plt.xlabel("Versão do FIFA")
+    plt.ylabel(f"{habilidade}")
+    plt.ylim(0, 150)
+    plt.show()
