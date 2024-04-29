@@ -47,7 +47,7 @@ def PlotLineGraph(dataset, attribute: str):
     plt.show()
 
 #Função que recebe os parametos e faz as contas necessárias
-def Antagonics(dataset1, dataset2, posicao1:str, posicao2: str):
+def Antagonics(dataset1, dataset2, posicao1:str, posicao2: str): 
     #selecionar apenas os valores númericos
     columns1 = dataset1.select_dtypes(include=['int', 'float']).columns
     columns2 = dataset2.select_dtypes(include=['int', 'float']).columns
