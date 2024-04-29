@@ -9,9 +9,10 @@ Projeto final da disciplina Introdução a Ciência de Dados 2023.2.,ministrado 
     - [Luiz Eduardo de Almeida Siqueira Silva](https://github.com/LuizzEdd)
 
 ### Perguntas a serem respondidas pelo nossos dados 📉:
-    - Quais características são determinantes pra mudança de nivel de um jogador ?
-    - Quais são as características determinantes para o decaimento de um jogador ?
-    - Quais, estaticamente, as melhores características para um jogador possuir ?
+    - Qual  setor possui a maior média overall ?
+    - A partir de média é possível afirmar qual a posição com melhores jogadores durante o ano ?
+    - Qual a constância da média anual de overall entre os setores ?
+    - Qual o comportamente das posições antagônicas ?
 
 #### Link do nosso dataset 📖:
 [EA Sports FC Complete Player Dataset 2015-2024](https://www.kaggle.com/datasets/stefanoleone992/ea-sports-fc-24-complete-player-dataset/data?select=male_players.csv%5B)
